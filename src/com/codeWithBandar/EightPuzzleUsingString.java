@@ -55,45 +55,9 @@ public class EightPuzzleUsingString {
         StringBuilder m = new StringBuilder(currentState);
         for (int  i = 0; i<9 ; i++) {
                 if(currentState.charAt(i) != '0')continue;
-                if(position.equals("up") && i <= 2)return null;
-                if(position.equals("left") &&  (i== 0 || i==3||i==6))return null;
-                if(position.equals("right") && (i==2||i==5||i==8))return null;
-                if(position.equals("down") && i>=6)return null;
+            if (A_Star.checkPosition(position, i)) return null;
 
-            switch (position) {
-                case "up" -> {
-                    char temp = currentState.charAt(currentState.indexOf('0') - 3);
-                    m.deleteCharAt(i);
-                    m.insert(i, temp);
-                    m.deleteCharAt(currentState.indexOf('0') - 3);
-                    m.insert(currentState.indexOf(temp), '0');
-                    return m.toString();
-                }
-                case "down" -> {
-                    char temp = currentState.charAt(currentState.indexOf('0') + 3);
-                    m.deleteCharAt(i);
-                    m.insert(i, temp);
-                    m.deleteCharAt(currentState.indexOf('0') + 3);
-                    m.insert(currentState.indexOf(temp), '0');
-                    return m.toString();
-                }
-                case "right" -> {
-                    char temp = currentState.charAt(currentState.indexOf('0') + 1);
-                    m.deleteCharAt(i);
-                    m.insert(i, temp);
-                    m.deleteCharAt(currentState.indexOf('0') + 1);
-                    m.insert(currentState.indexOf(temp), '0');
-                    return m.toString();
-                }
-                case "left" -> {
-                    char temp = currentState.charAt(currentState.indexOf('0') - 1);
-                    m.deleteCharAt(i);
-                    m.insert(i, temp);
-                    m.deleteCharAt(currentState.indexOf('0') - 1);
-                    m.insert(currentState.indexOf(temp), '0');
-                    return m.toString();
-                }
-            }
+            if (A_Star.generateNode(position, currentState, m, i)) return m.toString();
         }
 
         return null;
